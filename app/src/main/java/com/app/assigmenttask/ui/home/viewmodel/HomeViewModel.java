@@ -4,22 +4,24 @@ import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.app.assigmenttask.repository.UserRepository;
-import com.app.assigmenttask.response.ResponseRestaurant;
+import com.app.assigmenttask.data.response.ResponseRestaurant;
 import com.app.assigmenttask.utils.SingleLiveEvent;
 
 import java.util.List;
 
-public class HomeViewModel extends ViewModel {
+import static org.koin.java.KoinJavaComponent.inject;
 
+import kotlin.Lazy;
+
+public class HomeViewModel extends ViewModel {
 
     ObservableBoolean showLoading;
     MutableLiveData<List<ResponseRestaurant.Datum>> restaurantList;
     SingleLiveEvent<String> showError;
 
-    public UserRepository userRepository;
+    public Lazy<UserRepository> userRepository = inject(UserRepository.class);
 
-    HomeViewModel(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public HomeViewModel() {
         getAllRestaurants();
     }
 

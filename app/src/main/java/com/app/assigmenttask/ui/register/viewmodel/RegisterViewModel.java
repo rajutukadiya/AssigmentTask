@@ -23,7 +23,7 @@ public class RegisterViewModel extends ViewModel {
     public String strPassword = "";
     public MutableLiveData<Boolean> successRegister = new MutableLiveData();
 
-    RegisterViewModel(UserRepository userRepository) {
+    public RegisterViewModel(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

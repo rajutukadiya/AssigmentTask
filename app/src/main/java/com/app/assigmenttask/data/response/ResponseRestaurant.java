@@ -1,4 +1,4 @@
-package com.app.assigmenttask.response;
+package com.app.assigmenttask.data.response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -244,7 +244,7 @@ public class ResponseRestaurant {
         private Integer propertyAvgRating;
         private List<PropertyBookingTimeSlot> propertyBookingTimeSlots = new ArrayList<PropertyBookingTimeSlot>();
         private List<ModifiedWeekday> modifiedWeekdays = new ArrayList<ModifiedWeekday>();
-        private Object logo;
+        private Logo logo;
         private String shareurl;
         private List<Cuisine> cuisines = new ArrayList<Cuisine>();
         private List<Policy> policies = new ArrayList<Policy>();
@@ -532,11 +532,11 @@ public class ResponseRestaurant {
             this.modifiedWeekdays = modifiedWeekdays;
         }
 
-        public Object getLogo() {
+        public Logo getLogo() {
             return logo;
         }
 
-        public void setLogo(Object logo) {
+        public void setLogo(Logo logo) {
             this.logo = logo;
         }
 
@@ -650,6 +650,45 @@ public class ResponseRestaurant {
 
         public void setRestotype(List<Restotype> restotype) {
             this.restotype = restotype;
+        }
+    }
+
+    public class Logo {
+        public int id;
+        public String image;
+        public int property_id;
+        public String url;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public int getProperty_id() {
+            return property_id;
+        }
+
+        public void setProperty_id(int property_id) {
+            this.property_id = property_id;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
     }
 

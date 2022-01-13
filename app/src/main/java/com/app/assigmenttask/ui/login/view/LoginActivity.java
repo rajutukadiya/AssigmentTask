@@ -3,20 +3,18 @@ package com.app.assigmenttask.ui.login.view;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-
 import com.app.assigmenttask.R;
 import com.app.assigmenttask.databinding.ActivityLoginBinding;
 import com.app.assigmenttask.ui.login.viewmodel.LoginViewModel;
 
+import static org.koin.java.KoinJavaComponent.inject;
+
 public class LoginActivity extends AppCompatActivity {
 
-
     private ActivityLoginBinding mViewDataBinding;
-    private LoginViewModel loginViewModel;
+    private LoginViewModel loginViewModel = (LoginViewModel) inject(LoginViewModel.class);
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -24,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mViewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         mViewDataBinding.setLifecycleOwner(this);
-        loginViewModel=new LoginViewModel(LoginViewModel)
         mViewDataBinding.setViewModel(loginViewModel);
 
         loginViewModel.notifyClick.observe(this, id -> {

@@ -19,7 +19,7 @@ public class LoginViewModel extends ViewModel {
     public MutableLiveData<Boolean> loginSuccess = new MutableLiveData();
     public UserRepository userRepository;
 
-    LoginViewModel(UserRepository userRepository) {
+    public LoginViewModel(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
