@@ -6,6 +6,7 @@ import com.app.assigmenttask.BuildConfig.DEBUG
 import com.app.assigmenttask.R
 import com.app.assigmenttask.api.ApiService
 import com.app.assigmenttask.api.HostSelectionInterceptor
+import com.app.assigmenttask.core.MainApp
 import com.app.assigmenttask.db.AppDatabase
 import com.app.assigmenttask.db.dao.UsersDao
 import com.app.assigmenttask.repository.UserRepository
@@ -17,12 +18,20 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.android.ext.koin.androidLogger
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.core.context.startKoin
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+
+@JvmField
+val appContext = module {
+    single(named("appContext")) { androidContext() }
+}
 
 @JvmField
 val apiModule = module {
@@ -44,7 +53,7 @@ val databaseModule = module {
     }
 
     fun provideUsersDao(database: AppDatabase): UsersDao {
-        return database.usersDao
+        return database.userDao()
     }
 
     single { provideDatabase(androidApplication()) }
@@ -133,4 +142,21 @@ val viewModelModule = module {
 //    viewModel {
 //        TableViewModel(get())
 //    }
+}
+
+fun startKoinApp(application: MainApp) {
+    startKoin {
+        androidLogger() //This one is causing the crash
+        androidContext(application)
+        modules(
+            listOf(
+                apiModule,
+                appContext,
+                databaseModule,
+                viewModelModule,
+                repositoryModule,
+                networkModule
+            )
+        )
+    }
 }

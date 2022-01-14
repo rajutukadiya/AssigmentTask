@@ -12,8 +12,7 @@ public interface UsersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void add(User users);
 
-    @Query("Select * from users where email==:emailOrPhone or number == password and password==password")
+    @Query("Select * from users where email==:emailOrPhone or number == :emailOrPhone and password==:password")
     User findUser(String emailOrPhone, String password);
-
 
 }
